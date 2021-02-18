@@ -1,5 +1,6 @@
 package com.authentic.valo.player;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -60,6 +62,20 @@ public class PlayerService {
             playerRepository.deleteById(playerId);
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player ID not found. Try a valid one.");
+        }
+    }
+
+    public Player patchPlayerPropertyByPlayerId(UUID playerId, Player player) {
+        Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+        if (optionalPlayer.isPresent()) {
+            Player auxPlayer = optionalPlayer.get();
+            if (StringUtils.isNotBlank(player.getUsername()))
+                auxPlayer.setUsername(player.getUsername());
+            if (StringUtils.isNotBlank(player.getPassword()))
+                auxPlayer.setPassword(player.getPassword());
+            return playerRepository.save(auxPlayer);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_EXTENDED, "Player not found.");
         }
     }
 }

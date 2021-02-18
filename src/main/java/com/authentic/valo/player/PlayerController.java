@@ -43,4 +43,10 @@ public class PlayerController {
     public void deletePlayer(@PathVariable("playerId") UUID playerId) {
         playerService.deletePlayer(playerId);
     }
+
+    @PatchMapping("/{playerId}")
+    public Player patchPlayer(@PathVariable("playerId") UUID playerId, @RequestBody Player player) {
+        player.setPlayerId(playerId);
+        return playerService.patchPlayerPropertyByPlayerId(playerId, player);
+    }
 }
