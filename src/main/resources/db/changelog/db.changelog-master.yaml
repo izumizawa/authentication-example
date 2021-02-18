@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_structure
+      author: izumizawa
+      changes:
+        - createTable:
+            tableName: player_data
+            columns:
+              - column:
+                  name: player_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: player_pk
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
