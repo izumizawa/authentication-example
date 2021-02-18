@@ -6,14 +6,14 @@
 Before running our application, you have to create a postgres database locally with the following attributes:
 
 #### Server
-- Host: localhost
-- Port: 5432
-- Database name: player_register
+- Host: `localhost`
+- Port: `5432`
+- Database name: `player_register`
 
 #### Authentication
-- Authentication: Database Native
-- Username: postgres
-- Password: postgres
+- Authentication: `Database Native`
+- Username: `postgres`
+- Password: `postgres`
 
 Also, we used the [Lombok library](https://projectlombok.org/) in the project, so if you open it in an IDE, like IntelliJ, you should install a plugin to run the application without errors.
 
@@ -27,6 +27,7 @@ You can :
 - `search by username` 
 - `search by player id` 
 - `delete` a player
+- `alter` a player data
 
 #### Insert player
 - URI: [http://localhost:8080/players](http://localhost:8080/players)
@@ -43,3 +44,10 @@ If you have your player ID, you can search this way.
 
 #### Delete player
 - URI: [http://localhost:8080/players/<YourUUID>](http://localhost:8080/players/<YourUUID>)
+
+#### Alter player
+- URI: [http://localhost:8080/players/<YourUUID>](http://localhost:8080/players/<YourUUID>)
+- Body: `{
+             "username": "<YourOptionalNewUsername>",
+             "password": "<YourOptionalNewPassword>" 
+         }`
