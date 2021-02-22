@@ -14,13 +14,6 @@ const SignIn: React.FunctionComponent = () => {
   const [username, setUsername] = React.useState<String>("");
   const [password, setPassword] = React.useState<String>("");
 
-  // const usernameInput = (value: String): void => {
-  //   setUsername(value);
-  // };
-  // const passwordInput = (value: String): void => {
-  //   setPassword(value);
-  // };
-
   const onPress = (): void => {};
   return (
     <Container component="main" maxWidth="xs">
@@ -53,8 +46,10 @@ const SignIn: React.FunctionComponent = () => {
             margin="normal"
             autoComplete="current-password"
             className={Styles.textInput}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {console.log(FormData)}
+          {/* {console.log(FormData)} */}
           <Button
             type="submit"
             fullWidth
@@ -67,7 +62,7 @@ const SignIn: React.FunctionComponent = () => {
           </Button>
           <Typography>
             Already have an account?
-            <Link href="" className={Styles.link}>
+            <Link href="/login" className={Styles.link}>
               {" "}
               Login
             </Link>

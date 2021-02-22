@@ -54,7 +54,7 @@ const Login: React.FunctionComponent = () => {
         </Button>
         <Typography>
           Need an account?
-          <Link href="#" className={Styles.link}>
+          <Link href="/signin" className={Styles.link}>
             {" "}
             Sign up
           </Link>
