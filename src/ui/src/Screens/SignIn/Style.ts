@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(5),
   },
   instruction: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: theme.spacing(1),
   },
 }));

@@ -6,6 +6,8 @@ import {
   Box,
   Link,
   Typography,
+  FormHelperText,
+  FormControl,
 } from "@material-ui/core";
 import useStyles from "./Style";
 
@@ -13,16 +15,33 @@ const SignIn: React.FunctionComponent = () => {
   const Styles = useStyles();
   const [username, setUsername] = React.useState<String>("");
   const [password, setPassword] = React.useState<String>("");
+  const [confirmPassword, setConfirmPassword] = React.useState<String>("");
+
+  const validatePassword = (): String => {
+    if (password.length !== 0) {
+      if (password.length < 6 || password.length > 20) {
+        return "Password must have between 6 and 20 characters.";
+      }
+    }
+    return "Password cannot be null.";
+  };
+
+  const validateConfirmedPassword = (): String => {
+    if (password !== confirmPassword) {
+      return "Passwords must be equal";
+    }
+    return "";
+  };
 
   const onPress = (): void => {};
   return (
     <Container component="main" maxWidth="xs">
       <Box className={Styles.formBox}>
         <Typography className={Styles.title}>Create account 😗✌️</Typography>
-        <Typography className={Styles.instruction}>
-          Choose an unique username and password to sign in
-        </Typography>
-        <form noValidate>
+        <FormControl>
+          <FormHelperText className={Styles.instruction}>
+            Choose an unique username and password to sign in
+          </FormHelperText>
           <TextField
             required
             fullWidth
@@ -48,6 +67,40 @@ const SignIn: React.FunctionComponent = () => {
             className={Styles.textInput}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={
+              password.length !== 0 &&
+              (password.length > 20 || password.length < 6)
+            }
+            helperText={
+              password.length !== 0 &&
+              (password.length > 20 || password.length < 6)
+                ? validatePassword()
+                : null
+            }
+          />
+          <TextField
+            required
+            disabled={
+              password.length === 0 ||
+              password.length > 20 ||
+              password.length < 6
+            }
+            fullWidth
+            id="confirm-password"
+            label="Confirm password"
+            type="password"
+            variant="outlined"
+            margin="normal"
+            autoComplete="current-password"
+            className={Styles.textInput}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            error={confirmPassword.length !== 0 && password !== confirmPassword}
+            helperText={
+              confirmPassword.length !== 0 && password !== confirmPassword
+                ? validateConfirmedPassword()
+                : null
+            }
           />
           {/* {console.log(FormData)} */}
           <Button
@@ -67,7 +120,7 @@ const SignIn: React.FunctionComponent = () => {
               Login
             </Link>
           </Typography>
-        </form>
+        </FormControl>
       </Box>
     </Container>
   );
