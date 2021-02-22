@@ -11,6 +11,8 @@ import useStyles from "./Style";
 
 const Login: React.FunctionComponent = () => {
   const Styles = useStyles();
+  const [username, setUsername] = React.useState<String>("");
+  const [password, setPassword] = React.useState<String>("");
 
   return (
     <Container component="main" maxWidth="xs">
@@ -26,6 +28,8 @@ const Login: React.FunctionComponent = () => {
           margin="normal"
           autoComplete="username"
           className={Styles.textInput}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           required
@@ -37,6 +41,8 @@ const Login: React.FunctionComponent = () => {
           margin="normal"
           autoComplete="password"
           className={Styles.textInput}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Typography className={Styles.forgotPassword}>
           <Link href="#" className={Styles.link}>
