@@ -10,14 +10,17 @@ import {
   FormControl,
 } from "@material-ui/core";
 import useStyles from "./Style";
+import { useDispatch } from "react-redux";
+import { createAccountAction } from "../../Ducks/SignIn/Actions";
 
 const SignIn: React.FunctionComponent = () => {
   const Styles = useStyles();
-  const [username, setUsername] = React.useState<String>("");
-  const [password, setPassword] = React.useState<String>("");
-  const [confirmPassword, setConfirmPassword] = React.useState<String>("");
+  const dispatch = useDispatch();
+  const [username, setUsername] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
-  const validatePassword = (): String => {
+  const validatePassword = (): string => {
     if (password.length !== 0) {
       if (password.length < 6 || password.length > 20) {
         return "Password must have between 6 and 20 characters.";
@@ -26,14 +29,26 @@ const SignIn: React.FunctionComponent = () => {
     return "Password cannot be null.";
   };
 
-  const validateConfirmedPassword = (): String => {
+  const validateConfirmedPassword = (): string => {
     if (password !== confirmPassword) {
       return "Passwords must be equal";
     }
     return "";
   };
 
-  const onPress = (): void => {};
+  const onSignInPress = (): void => {
+    console.log(username);
+    console.log(password);
+    dispatch(
+      createAccountAction({
+        username: username,
+        password: password,
+      })
+    );
+  };
+
+  // const onPress = (): void => {};
+
   return (
     <Container component="main" maxWidth="xs">
       <Box className={Styles.formBox}>
@@ -109,7 +124,10 @@ const SignIn: React.FunctionComponent = () => {
             variant="contained"
             color="primary"
             className={Styles.submit}
-            onClick={onPress}
+            onClick={onSignInPress}
+            disabled={
+              username === "" || password === "" || confirmPassword === ""
+            }
           >
             Create new account
           </Button>
